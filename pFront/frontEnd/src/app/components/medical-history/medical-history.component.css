@@ -1,0 +1,14 @@
+.content-box{
+    display: flex;
+    width: max-content;
+    gap: 5vw;
+}
+  
+.content-components{
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+    height: 150vh;
+    max-height: 100%;
+    overflow-y: scroll;
+}
