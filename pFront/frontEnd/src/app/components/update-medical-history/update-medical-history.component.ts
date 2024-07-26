@@ -101,6 +101,7 @@ export class UpdateMedicalHistoryComponent implements OnInit, OnChanges{
           }
         })
       }
+      location.reload()
     }
 
 
