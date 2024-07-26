@@ -81,6 +81,7 @@ submitCreateForm(): void {
       }
     })
   }
+  location.reload()
 }
 
 createNotification(type: string, title: string, description: string): void {
