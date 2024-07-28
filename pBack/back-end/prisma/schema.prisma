@@ -13,11 +13,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model medicalHistory {
-  id          Int      @id @default(autoincrement())
-  patientName String
-  birthdate   DateTime
-  bloodType   String
+model MedicalHistory {
+  medicalId        Int       @id @default(autoincrement())
+  patientName      String
+  birthdate        DateTime
+  bloodType        String
   emergencyContact String
-  medicines   String[]
+  medicines        String[]
+  patient          Patient   @relation(fields: [id_patient], references: [patientId])
+  id_patient       Int       @unique
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model Patient {
+  patientId        Int             @id @default(autoincrement())
+  name             String
+  age              Int
+  email            String          @unique
+  dni              String
+  medicalHistory   MedicalHistory?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 }

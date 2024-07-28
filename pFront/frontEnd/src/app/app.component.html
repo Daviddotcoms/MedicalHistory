@@ -6,7 +6,7 @@
     [(nzCollapsed)]="isCollapsed"
     [nzTrigger]="null">
     <div class="sidebar-logo">
-      <a href="https://ng.ant.design/" target="_blank">
+      <a href="/welcome">
         <img src="../assets/images/hospitalIcon.svg" alt="logo">
         <h1>Historiales Clínicos</h1>
       </a>
@@ -15,7 +15,10 @@
       <li nz-submenu nzOpen nzTitle="Formularios" nzIcon="form">
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="/welcome">CRUD</a>
+            <a href="/medicalHistory" routerLink="/medicalHistory">Historiales Clínicos</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a href="/patient" routerLink="/patient">Pacientes</a>
           </li>
         </ul>
       </li>

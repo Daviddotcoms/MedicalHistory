@@ -7,9 +7,14 @@
 
   <nz-form-item >
     <nz-form-label  nzRequired>Nombre del Paciente</nz-form-label>
-    <nz-form-control [nzSpan]="8">
+    <nz-form-control [nzSpan]="8" [nzErrorTip]="patientNameErrorTpl">
       <input nz-input formControlName="patientName" placeholder="Juan Pérez" />
     </nz-form-control>
+  <ng-template #patientNameErrorTpl let-control> 
+    @if(control.hasError('pattern')) {
+    <ng-container>El nombre del paciente solo puede contener letras</ng-container>
+  }
+  </ng-template>
   </nz-form-item>
 
   <nz-form-item>
@@ -40,14 +45,12 @@
     <input nz-input formControlName="emergencyContact" placeholder="0123456789" />
   </nz-form-control>
   <ng-template #emergencyContactErrorTpl let-control>
-    @if (control.hasError('required')) {
-    <ng-container>El contacto de emergencia es requerido.</ng-container>
-    } @else if(control.hasError('pattern')) {
+    @if(control.hasError('pattern')) {
     <ng-container>El contacto solo debe contener números</ng-container>
     } @else if (control.hasError('minlength')) {
-    <ng-container>El contacto debe tener 10 caracteres.</ng-container>
-    } @else {
-    <ng-container>El contacto debe tener 10 caracteres.</ng-container>
+    <ng-container>El contacto debe tener 10 caracteres</ng-container>
+    } @else if(control.hasError('maxlength')){
+    <ng-container>El contacto debe tener 10 caracteres</ng-container>
     }
   </ng-template>
 </nz-form-item>

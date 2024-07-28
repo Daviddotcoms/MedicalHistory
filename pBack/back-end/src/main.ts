@@ -7,11 +7,11 @@ async function bootstrap() {
 
   app.enableCors({
     origin: 'http://localhost:4200',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    methods: 'GET,HEAD,PATCH,POST,DELETE',
   })
   const documentOptions = new DocumentBuilder()
   .setTitle('Medical History API')
-  .setDescription('API for managing medical history data')
+  .setDescription('Manage patients and medical histories data')
   .setVersion('1.0')
   .build();
 

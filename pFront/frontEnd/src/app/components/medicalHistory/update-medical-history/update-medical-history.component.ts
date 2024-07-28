@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { MedicalHistoryService } from '../../services/medical-history.service';
+import { MedicalHistoryService } from '../../../services/backend.service';
 import { NonNullableFormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -9,7 +9,7 @@ import {NzFormModule} from 'ng-zorro-antd/form'
 import {NzInputModule} from 'ng-zorro-antd/input'
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import {NzFormControlComponent} from 'ng-zorro-antd/form'
-import { Medicines } from '../../enums/medicines';
+import { Medicines } from '../../../enums/medicines';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 
 @Component({

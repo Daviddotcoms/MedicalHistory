@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { CreateMedicalHistoryDto } from './dto/create-medical-history.dto';
 import { UpdateMedicalHistoryDto } from './dto/update-medical-history.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { writeHeapSnapshot } from 'v8';
 
 @Injectable()
 export class MedicalHistoryService {
@@ -10,32 +9,32 @@ export class MedicalHistoryService {
 
   async createMedicalHistory(createMedicalHistoryDto: CreateMedicalHistoryDto) {
     return await this.prisma.medicalHistory.create({
-      data: createMedicalHistoryDto
+      data: createMedicalHistoryDto,
     })
   }
 
   async findAllMedicalHistories() {
     return await this.prisma.medicalHistory.findMany({
-      where: {id: {not: 0}}
+      where: {medicalId: {not: 0}}
     });
   }
 
-  async findOneMedicalHistory(id: number) {
+  async findOneMedicalHistory(medicalId: number) {
     return await this.prisma.medicalHistory.findUnique({
-      where: {id}
+      where: {medicalId}
     })
   }
 
-  async updateMedicalHistory(id: number, updateMedicalHistoryDto: UpdateMedicalHistoryDto) {
+  async updateMedicalHistory(medicalId: number, updateMedicalHistoryDto: UpdateMedicalHistoryDto) {
     return await this.prisma.medicalHistory.update({
-      where: {id},
+      where: {medicalId},
       data: updateMedicalHistoryDto
     })
   }
 
-  async deleteMedicalHistory(id: number) {
+  async deleteMedicalHistory(medicalId: number) {
     return await this.prisma.medicalHistory.delete({
-      where: {id}
+      where: {medicalId}
     })
   }
 }

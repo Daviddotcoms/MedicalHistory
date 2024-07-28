@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { MedicalHistoryService } from '../../services/medical-history.service';
+import { MedicalHistoryService } from '../../../services/backend.service';
 import { CommonModule } from '@angular/common';
 import{NzTableModule} from 'ng-zorro-antd/table'
 import { NzButtonModule } from 'ng-zorro-antd/button';

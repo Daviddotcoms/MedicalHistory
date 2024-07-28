@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormControl, FormGroup, Validators, NonNullableFormBuilder } from '@angular/forms';
 import {NzFormLabelComponent, NzFormItemComponent} from 'ng-zorro-antd/form'
-import { MedicalHistoryService } from '../../services/medical-history.service';
+import { MedicalHistoryService } from '../../../services/backend.service';
 import {NzNotificationService} from 'ng-zorro-antd/notification';
 import {NzButtonModule} from 'ng-zorro-antd/button'
 import {NzFormModule} from 'ng-zorro-antd/form'
@@ -10,10 +10,10 @@ import {NzInputModule} from 'ng-zorro-antd/input'
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import {NzFormControlComponent} from 'ng-zorro-antd/form';
 import {NzSelectModule} from 'ng-zorro-antd/select'
-import { Medicines } from '../../enums/medicines';
-import { UpdateMedicalHistoryComponent } from '../update-medical-history/update-medical-history.component';
+import { Medicines } from '../../../enums/medicines';
+import { Bloodtypes } from '../../../enums/bloodtype';
 import { MedicalHistoryListComponent } from '../medical-history-list/medical-history-list.component';
-import { Bloodtypes } from '../../enums/bloodtype';
+import { UpdateMedicalHistoryComponent } from '../update-medical-history/update-medical-history.component';
 
 
 @Component({
@@ -32,10 +32,10 @@ import { Bloodtypes } from '../../enums/bloodtype';
     UpdateMedicalHistoryComponent,
     MedicalHistoryListComponent
   ],
-  templateUrl: './medical-history.component.html',
-  styleUrl: './medical-history.component.css'
+  templateUrl: './create-medical-history.component.html',
+  styleUrl: './create-medical-history.component.css'
 })
-export class MedicalHistoryComponent{
+export class CreateMedicalHistoryComponent{
 
   medicines = Object.values(Medicines);
   bloodtypes = Object.values(Bloodtypes)
@@ -48,7 +48,7 @@ constructor(
 ) {
   const {required} = Validators;
   this.validateForm = this.fb.group({
-    patientName: ['', [required]],
+    patientName: ['', [required, Validators.pattern('^[a-zA-Z ]+$')]],
     birthdate: ['', [required]],
     bloodType: ['', [required]],
     emergencyContact: ['', [required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern('^[0-9]*$')]],
@@ -69,9 +69,10 @@ validateForm: FormGroup<{
 
 submitCreateForm(): void {
   if (this.validateForm.valid){
+    this.createNotification('success', `${this.validateForm.value.patientName}`, 'The medical history has been created successfully')
     this.service.createMedicalHistory(this.validateForm.value).subscribe(()=>{
-      this.createNotification('success', `${this.validateForm.value.patientName}${this.validateForm.value.birthdate}`, 'The medical history has been created successfully')
       this.validateForm.reset()
+      location.reload()
     })
   } else {
     Object.values(this.validateForm.controls).forEach(control => {
@@ -81,7 +82,6 @@ submitCreateForm(): void {
       }
     })
   }
-  location.reload()
 }
 
 createNotification(type: string, title: string, description: string): void {
