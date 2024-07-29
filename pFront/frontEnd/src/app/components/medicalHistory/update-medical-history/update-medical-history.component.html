@@ -1,56 +1,93 @@
 
   <h1>Actualizar Historial Clínico</h1>
+  <form nz-form [formGroup]="validateForm" (ngSubmit)="submitUpdateForm()">
 
-<form nz-form [formGroup]="validateForm" (ngSubmit)="submitUpdateForm()">
-
-  <nz-form-item >
-    <nz-form-label>Nombre del Paciente</nz-form-label>
-    <nz-form-control [nzSpan]="8">
-      <input nz-input formControlName="patientName" placeholder="Juan Pérez" />
-    </nz-form-control>
+    <nz-form-item >
+      <nz-form-label  >Nombre del Paciente</nz-form-label>
+      <nz-form-control [nzSpan]="18" [nzErrorTip]="patientNameErrorTpl">
+        <input nz-input formControlName="patientName" placeholder="Juan Pérez" />
+      </nz-form-control>
+    <ng-template #patientNameErrorTpl let-control> 
+      @if(control.hasError('pattern')) {
+      <ng-container>El nombre del paciente solo puede contener letras</ng-container>
+    }
+    </ng-template>
+    </nz-form-item>
+  
+    <nz-form-item>
+      <nz-form-label  >Fecha de Nacimiento</nz-form-label>
+      <nz-form-control [nzSpan]="18">
+          <nz-date-picker  formControlName="birthdate" nzPlaceHolder="Selecciona una fecha"></nz-date-picker>
+      </nz-form-control>
   </nz-form-item>
-
+  
   <nz-form-item>
-    <nz-form-label>Fecha de Nacimiento</nz-form-label>
-    <nz-form-control [nzSpan]="8">
-        <nz-date-picker  formControlName="birthdate" nzPlaceHolder="Selecciona una fecha"></nz-date-picker>
+      <nz-form-label  >Tipo de Sangre</nz-form-label>
+      <nz-form-control [nzSpan]="18">
+        <nz-select
+          nzPlaceHolder="Selecciona un tipo de sangre"
+          formControlName="bloodType"
+          >
+          @for (bloodtype of bloodtypes; track $index) {
+            <nz-option [nzLabel]="bloodtype" [nzValue]="bloodtype" ></nz-option>
+          }
+          </nz-select>
+          <ng-template #tagPlaceHolder let-selectedList>and {{ selectedList.length }} more selected</ng-template>
+      </nz-form-control>
+  </nz-form-item>
+  
+  <nz-form-item>
+    <nz-form-label >Contacto de Emergencia</nz-form-label>
+    <nz-form-control [nzSpan]="18" [nzErrorTip]="emergencyContactErrorTpl">
+      <input nz-input formControlName="emergencyContact" placeholder="0912345678" />
     </nz-form-control>
-</nz-form-item>
-
-<nz-form-item>
-    <nz-form-label>Tipo de Sangre</nz-form-label>
-    <nz-form-control [nzSpan]="8">
-        <input nz-input formControlName="bloodType" placeholder="A+" />
-    </nz-form-control>
-</nz-form-item>
-
-<nz-form-item>
-    <nz-form-label>Contacto de Emegencia</nz-form-label>
-    <nz-form-control [nzSpan]="8">
-        <input nz-input formControlName="emergencyContact" placeholder="0123456789" />
-    </nz-form-control>
-</nz-form-item>
-
-<nz-form-item>
-    <nz-form-label>Medicinas</nz-form-label>
-    <nz-form-control [nzSpan]="14">
-      <nz-select
-        nzMode="tags"
-        nzPlaceHolder="Selecciona una medicina"
-        formControlName="medicines"
-        [nzMaxMultipleCount]="10"
-        >
-        @for (medicine of medicines; track $index) {
-          <nz-option [nzLabel]="medicine" [nzValue]="medicine" ></nz-option>
+    <ng-template #emergencyContactErrorTpl let-control>
+      @if(control.hasError('pattern')) {
+      <ng-container>El contacto solo debe contener números</ng-container>
+      } @else if (control.hasError('minlength')) {
+      <ng-container>El contacto debe tener 10 caracteres</ng-container>
+      } @else if(control.hasError('maxlength')){
+      <ng-container>El contacto debe tener 10 caracteres</ng-container>
+      }
+    </ng-template>
+  </nz-form-item>
+  
+  <nz-form-item>
+      <nz-form-label>Medicinas</nz-form-label>
+      <nz-form-control [nzSpan]="18">
+        <nz-select
+          nzMode="tags"
+          nzPlaceHolder="Selecciona una medicina"
+          formControlName="medicines"
+          [nzMaxMultipleCount]="10"
+          >
+          @for (medicine of medicines; track $index) {
+            <nz-option [nzLabel]="medicine" [nzValue]="medicine" ></nz-option>
+          }
+          </nz-select>
+          <ng-template #tagPlaceHolder let-selectedList>and {{ selectedList.length }} more selected</ng-template>
+      </nz-form-control>
+    </nz-form-item>
+  
+    <nz-form-item>
+      <nz-form-label >Id Paciente</nz-form-label>
+      <nz-form-control [nzSpan]="18" [nzErrorTip]="id_patientErrorTpl">
+        <nz-input-number formControlName="id_patient" [minlength]="1" [maxlength]="100" [nzStep]="1" nzPlaceHolder="1-100"></nz-input-number>
+      </nz-form-control>
+      <ng-template #id_patientErrorTpl let-control>
+        @if(control.hasError('pattern')) {
+        <ng-container>El id solo puede tener números positivos</ng-container>
+        } @else if (control.hasError('minlength')) {
+        <ng-container>El id debe tener al menos un caracter</ng-container>
+        } @else if(control.hasError('maxlength')){
+        <ng-container>El id no puede tener más de 3 caracteres</ng-container>
         }
-        </nz-select>
-        <ng-template #tagPlaceHolder let-selectedList>and {{ selectedList.length }} more selected</ng-template>
-    </nz-form-control>
-  </nz-form-item>
-
-  <nz-form-item>
-    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 16, offset: 8 }">
-      <button nz-button nzType="primary">Enviar</button>
-    </nz-form-control>
-  </nz-form-item>
-</form>
+      </ng-template>
+    </nz-form-item>
+  
+    <nz-form-item>
+      <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 16, offset: 8 }">
+        <button nz-button nzType="primary">Enviar</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>

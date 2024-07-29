@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormControl, FormGroup, Validators, NonNullableFormBuilder } from '@angular/forms';
 import {NzFormLabelComponent, NzFormItemComponent} from 'ng-zorro-antd/form'
-import { MedicalHistoryService } from '../../../services/backend.service';
+import { BackendService } from '../../../services/backend.service';
 import {NzNotificationService} from 'ng-zorro-antd/notification';
 import {NzButtonModule} from 'ng-zorro-antd/button'
 import {NzFormModule} from 'ng-zorro-antd/form'
@@ -14,6 +14,7 @@ import { Medicines } from '../../../enums/medicines';
 import { Bloodtypes } from '../../../enums/bloodtype';
 import { MedicalHistoryListComponent } from '../medical-history-list/medical-history-list.component';
 import { UpdateMedicalHistoryComponent } from '../update-medical-history/update-medical-history.component';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number'
 
 
 @Component({
@@ -30,7 +31,8 @@ import { UpdateMedicalHistoryComponent } from '../update-medical-history/update-
     NzFormControlComponent,
     NzSelectModule,
     UpdateMedicalHistoryComponent,
-    MedicalHistoryListComponent
+    MedicalHistoryListComponent,
+    NzInputNumberModule
   ],
   templateUrl: './create-medical-history.component.html',
   styleUrl: './create-medical-history.component.css'
@@ -42,7 +44,7 @@ export class CreateMedicalHistoryComponent{
   selectedMedicalHistory: any
 
 constructor(
-  private service: MedicalHistoryService,
+  private service: BackendService,
   private fb: NonNullableFormBuilder,
   private notification: NzNotificationService
 ) {
@@ -53,17 +55,18 @@ constructor(
     bloodType: ['', [required]],
     emergencyContact: ['', [required, Validators.maxLength(10), Validators.minLength(10), Validators.pattern('^[0-9]*$')]],
     medicines: [['Paracetamol']],
+    id_patient: [0, [required, Validators.maxLength(3), Validators.minLength(1), Validators.pattern('^[1-9]\\d*$')]]
   });
- }
+}
 
 validateForm: FormGroup<{
   patientName: FormControl<string>
   birthdate: FormControl<string>
   bloodType: FormControl<string>
   emergencyContact: FormControl<string>
-  medicines: FormControl<string[] | any>
+  medicines: FormControl<string[]>
+  id_patient: FormControl<number>
 }>
-
 
 
 

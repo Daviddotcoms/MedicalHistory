@@ -19,5 +19,5 @@ export class CreatePatientDto {
 
   @IsOptional()
   @ApiProperty()
-  medicalHistoryId: number;
+  medicalHistoryId?: number;
 }

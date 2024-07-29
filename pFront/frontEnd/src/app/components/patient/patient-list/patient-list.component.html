@@ -1,1 +1,27 @@
-<p>patient-list works!</p>
+<nz-table nzBordered>
+    <thead>
+        <tr>
+        <th>Id</th>
+        <th>Nombre del Paciente</th>
+        <th>Edad</th>
+        <th>Correo Electrónico</th>
+        <th>Número de Cédula</th>
+        <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (patient of patients; track $index) {
+        <tr>
+            <td>{{patient.patientId}}</td>
+            <td>{{patient.name}}</td>
+            <td>{{patient.age}}</td>
+            <td>{{patient.email}}</td>
+            <td>{{patient.dni}}</td>
+            <td>
+                <button nz-button nzType="dashed" nzBlock (click)="selectedPatient(patient)">Editar</button>
+                <button nz-button nzDanger nzType="primary" nzBlock (click)="deletePatient(patient.patientId)">Eliminar</button>
+            </td>
+        </tr>
+    }
+    </tbody>
+</nz-table>

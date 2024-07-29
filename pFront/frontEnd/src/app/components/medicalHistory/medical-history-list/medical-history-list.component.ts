@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { MedicalHistoryService } from '../../../services/backend.service';
+import { BackendService } from '../../../services/backend.service';
 import { CommonModule } from '@angular/common';
 import{NzTableModule} from 'ng-zorro-antd/table'
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -13,9 +13,9 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 export class MedicalHistoryListComponent implements OnInit, OnChanges{
 
   medicalHistories: any[] = []
-  @Output() productSelected = new EventEmitter<any>();
+  @Output() medicalHistorySelected = new EventEmitter<any>();
 
-  constructor(private service: MedicalHistoryService){}
+  constructor(private service: BackendService){}
 
   ngOnInit(): void {
   this.loadMedicalHistories()
@@ -41,7 +41,7 @@ deleteMedicalHistory(id: number): void{
 }
 
 selectedMedicalHistory(medicalHistory: any): void{
-  this.productSelected.emit(medicalHistory)
+  this.medicalHistorySelected.emit(medicalHistory)
 }
 
 }

@@ -7,21 +7,23 @@
         <th>Tipo de Sangre</th>
         <th>Contacto de Emergencia</th>
         <th>Medicinas</th>
+        <th>Id Paciente</th>
         <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
         @for (history of medicalHistories; track $index) {
         <tr>
-            <td>{{history.id}}</td>
+            <td>{{history.medicalId}}</td>
             <td>{{history.patientName}}</td>
             <td>{{history.birthdate}}</td>
             <td>{{history.bloodType}}</td>
             <td>{{history.emergencyContact}}</td>
             <td>{{history.medicines}}</td>
+            <td>{{history.id_patient}}</td>
             <td>
                 <button nz-button nzType="dashed" nzBlock (click)="selectedMedicalHistory(history)">Editar</button>
-                <button nz-button nzDanger nzType="primary" nzBlock (click)="deleteMedicalHistory(history.id)">Eliminar</button>
+                <button nz-button nzDanger nzType="primary" nzBlock (click)="deleteMedicalHistory(history.medicalId)">Eliminar</button>
             </td>
         </tr>
     }

@@ -1,1 +1,78 @@
-<p>update-patient works!</p>
+<h1>Actualizar Paciente</h1>
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitUpdateForm()">
+    
+    <nz-form-item >
+      <nz-form-label>Nombre</nz-form-label>
+      <nz-form-control [nzSpan]="18" [nzErrorTip]="nameErrorTpl">
+        <input nz-input formControlName="name" placeholder="Juan Pérez" />
+      </nz-form-control>
+    <ng-template #nameErrorTpl let-control> 
+      @if(control.hasError('pattern')) {
+      <ng-container>El nombre del paciente solo puede contener letras</ng-container>
+    }
+    </ng-template>
+    </nz-form-item>
+
+    <nz-form-item >
+      <nz-form-label>Edad</nz-form-label>
+      <nz-form-control [nzSpan]="18" [nzErrorTip]="ageErrorTpl">
+          <nz-input-number formControlName="age" [minlength]="1" [nzMin]="0" [nzMax]="100" [nzStep]="1" nzPlaceHolder="5-10"></nz-input-number>
+      </nz-form-control>
+    <ng-template #ageErrorTpl let-control> 
+    @if(control.hasError('required')) {
+      <ng-container>La edad no puede contener letras o estar vacía</ng-container>
+    }@else if(control.hasError('min')) {
+      <ng-container>El paciente debe tener más de 5 años</ng-container>
+    } @else if(control.hasError('max')) {
+      <ng-container>El paciente debe tener menos de 10 años</ng-container>
+    }
+    </ng-template>
+    </nz-form-item>
+
+    <nz-form-item >
+      <nz-form-label>Correo Electrónico</nz-form-label>
+      <nz-form-control [nzSpan]="18" [nzErrorTip]="emailErrorTpl">
+        <input nz-input formControlName="email" placeholder="example@gmail.com" />
+      </nz-form-control>
+    <ng-template #emailErrorTpl let-control> 
+      @if(control.hasError('pattern')) {
+      <ng-container>El correo es invalido</ng-container>
+    }
+    </ng-template>
+    </nz-form-item>
+
+    <nz-form-item >
+      <nz-form-label>Número de Cédula</nz-form-label>
+      <nz-form-control [nzSpan]="18" [nzErrorTip]="dniErrorTpl">
+          <input nz-input formControlName="dni" placeHolder="0123456789">
+      </nz-form-control>
+      <ng-template #dniErrorTpl let-control>
+          @if(control.hasError('pattern')) {
+          <ng-container>El número de cédula solo debe contener números</ng-container>
+          } @else if (control.hasError('minlength')) {
+          <ng-container>El número de cédula debe tener 10 caracteres</ng-container>
+          } @else if(control.hasError('maxlength')){
+          <ng-container>El número de cédula debe tener 10 caracteres</ng-container>
+          }
+        </ng-template>
+    </nz-form-item>
+<!-- 
+    <nz-form-item >
+      <nz-form-label>Id Historial Clínico</nz-form-label>
+      <nz-form-control [nzSpan]="18" [nzErrorTip]="medicalHistoryIdErrorTpl">
+          <nz-input-number formControlName="medicalHistoryId" nzPlaceHolder="1-100" [minlength]="1" [nzMin]="0" [nzMax]="100" [nzStep]="1"></nz-input-number>
+      </nz-form-control>
+      <ng-template #medicalHistoryIdErrorTpl let-control> 
+          @if(control.hasError('min')) {
+            <ng-container>El id no puede ser menor a 1</ng-container>
+          }
+          </ng-template>
+    </nz-form-item> -->
+
+    <nz-form-item>
+      <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 16, offset: 8 }">
+        <button nz-button nzType="primary">Enviar</button>
+      </nz-form-control>
+    </nz-form-item>
+    
+  </form>

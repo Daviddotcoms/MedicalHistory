@@ -5,10 +5,10 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class MedicalHistoryService {
+export class BackendService {
   private url = 'http://localhost:3000'
   constructor(private http: HttpClient) { }
-
+  //MEDICAL HISTORY - METHODS
   createMedicalHistory<T>(medicalHistory: T): Observable<T>{
     return this.http.post<T>(`${this.url}/medical-history`, medicalHistory)
   }
@@ -23,5 +23,22 @@ export class MedicalHistoryService {
   
   deleteMedicalHistory(id: number): Observable<any>{
     return this.http.delete<any>(`${this.url}/medical-history/${id}`)
+  }
+
+  //PATIENT - METHODS
+  createPatient<T>(patient: T): Observable<T>{
+    return this.http.post<T>(`${this.url}/patient`, patient)
+  }
+
+  getPatients(): Observable<any>{
+    return this.http.get<any>(`${this.url}/patient`)
+  }
+  
+  updatePatient(id: number, patient: any): Observable<any>{
+    return this.http.patch<any>(`${this.url}/patient/${id}`, patient)
+  }
+  
+  deletePatient(id: number): Observable<any>{
+    return this.http.delete<any>(`${this.url}/patient/${id}`)
   }
 }
