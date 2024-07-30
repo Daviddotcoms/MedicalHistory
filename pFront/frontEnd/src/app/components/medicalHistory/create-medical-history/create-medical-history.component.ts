@@ -75,7 +75,7 @@ submitCreateForm(): void {
     this.createNotification('success', `${this.validateForm.value.patientName}`, 'The medical history has been created successfully')
     this.service.createMedicalHistory(this.validateForm.value).subscribe(()=>{
       this.validateForm.reset()
-      location.reload()
+      // location.reload()
     })
   } else {
     Object.values(this.validateForm.controls).forEach(control => {

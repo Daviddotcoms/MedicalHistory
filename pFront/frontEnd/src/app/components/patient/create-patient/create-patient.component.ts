@@ -61,7 +61,7 @@ selectedPatient: any;
       this.createNotification('success', `${this.validateForm.value.name} ${this.validateForm.value.age}`, 'The patient has been created successfully')
       this.service.createPatient(this.validateForm.value).subscribe(()=>{
         this.validateForm.reset()
-        location.reload()
+        // location.reload()
       })
     } else {
       Object.values(this.validateForm.controls).forEach(control => {

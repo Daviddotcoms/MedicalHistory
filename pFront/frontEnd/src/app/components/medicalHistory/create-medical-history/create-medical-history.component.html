@@ -80,10 +80,8 @@
     <ng-template #id_patientErrorTpl let-control>
       @if(control.hasError('pattern')) {
       <ng-container>El id solo puede tener números positivos</ng-container>
-      } @else if (control.hasError('minlength')) {
-      <ng-container>El id debe tener al menos un caracter</ng-container>
-      } @else if(control.hasError('maxlength')){
-      <ng-container>El id no puede tener más de 3 caracteres</ng-container>
+      } @else {
+        <ng-container>El id del paciente no puede contener letras ni estar vacío</ng-container>
       }
     </ng-template>
   </nz-form-item>
