@@ -1,3 +1,5 @@
+
+<input type="text" name="filter" placeholder="Buscar..." [(ngModel)]="filter" nz-input>
 <nz-table nzBordered>
     <thead>
         <tr>
@@ -10,8 +12,7 @@
         </tr>
     </thead>
     <tbody>
-        @for (patient of patients; track $index) {
-        <tr>
+        <tr *ngFor="let patient of patients | filterPatient: filter">
             <td>{{patient.patientId}}</td>
             <td>{{patient.name}}</td>
             <td>{{patient.age}}</td>
@@ -22,6 +23,5 @@
                 <button nz-button nzDanger nzType="primary" nzBlock (click)="deletePatient(patient.patientId)">Eliminar</button>
             </td>
         </tr>
-    }
     </tbody>
 </nz-table>
