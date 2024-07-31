@@ -71,11 +71,13 @@ validateForm: FormGroup<{
 
 
 submitCreateForm(): void {
+  if(this.validateForm.invalid){
+      this.createNotification('error', `Try Again`, 'The data of the medical history is wrong')
+  }
   if (this.validateForm.valid){
-    this.createNotification('success', `${this.validateForm.value.patientName}`, 'The medical history has been created successfully')
     this.service.createMedicalHistory(this.validateForm.value).subscribe(()=>{
       this.validateForm.reset()
-      // location.reload()
+      location.reload()
     })
   } else {
     Object.values(this.validateForm.controls).forEach(control => {

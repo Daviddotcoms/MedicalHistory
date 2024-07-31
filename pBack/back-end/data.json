@@ -1,8 +1,4 @@
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
-
-const patientsData = [
+[
   {
     "name": "John Doe",
     "age": 34,
@@ -277,39 +273,3 @@ const patientsData = [
     }
   }
 ]
-
-async function main() {
-  for (const patientData of patientsData) {
-    // Crear el paciente
-    const createdPatient = await prisma.patient.create({
-      data: {
-        name: patientData.name,
-        age: patientData.age,
-        email: patientData.email,
-        dni: patientData.dni,
-      },
-    });
-
-    // Crear el historial médico relacionado con el paciente
-    await prisma.medicalHistory.create({
-      data: {
-        patientName: patientData.medicalHistory.patientName,
-        birthdate: new Date(patientData.medicalHistory.birthdate),
-        bloodType: patientData.medicalHistory.bloodType,
-        emergencyContact: patientData.medicalHistory.emergencyContact,
-        medicines: patientData.medicalHistory.medicines,
-        id_patient: createdPatient.patientId, // Relacionar con el paciente creado
-      },
-    });
-  }
-  console.log('Patients succesfully created')
-}
-
-main()
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });

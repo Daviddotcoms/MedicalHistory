@@ -75,10 +75,13 @@ export class UpdatePatientComponent implements OnChanges{
   }
 
   submitUpdateForm():void {
+    if(this.validateForm.invalid){
+      this.createNotification('error', `Try Again`, 'The data of the patient is wrong')
+    }
     if(this.validateForm.valid){
       this.service.updatePatient(this.patient.patientId, this.validateForm.value).subscribe(()=>{
-        this.createNotification('success', `${this.validateForm.value.name}${this.validateForm.value.age}`, 'The patient has been updated successfully')
         this.validateForm.reset()
+        location.reload()
       })
     } else {
       Object.values(this.validateForm.controls).forEach(control => {
@@ -88,7 +91,6 @@ export class UpdatePatientComponent implements OnChanges{
           }
         })
       }
-      location.reload()
     }
 
     createNotification(type:string, title: string, content: string){

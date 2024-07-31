@@ -87,9 +87,11 @@ export class UpdateMedicalHistoryComponent implements OnChanges{
   }
 
   submitUpdateForm():void {
+    if(this.validateForm.invalid){
+      this.createNotification('error', `$Try Again`, 'The data of the medical history is wrong')
+    }
     if(this.validateForm.valid){
       this.service.updateMedicalHistory(this.medicalHistory.medicalId, this.validateForm.value).subscribe(()=>{
-        this.createNotification('success', `${this.validateForm.value.patientName}${this.validateForm.value.birthdate}`, 'The medical history has been updated successfully')
         this.validateForm.reset()
       })
     } else {
